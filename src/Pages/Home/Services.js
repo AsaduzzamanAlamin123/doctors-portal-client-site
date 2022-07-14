@@ -3,6 +3,7 @@ import floride from '../../assets/images/fluoride.png';
 import cavity from '../../assets/images/cavity.png';
 import whitening from '../../assets/images/whitening.png';
 import Service from './Service';
+import HeroService from './HeroService';
 
 
 const Services = () => {
@@ -44,6 +45,7 @@ const Services = () => {
         <h1 className='text-primary font-bold uppercase'> Our Services </h1>
           <h2 className='text-2xl font-bold'>services We Provide</h2>
         </div>
+        <section>
         <div className='grid grid-cols-1 lg:grid-cols-3'>
             {
                 services.map(service =><Service 
@@ -53,6 +55,10 @@ const Services = () => {
             }
 
         </div>
+        <div>
+         <HeroService></HeroService>   
+        </div>
+        </section>
         </div>
     );
 };
