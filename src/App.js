@@ -4,8 +4,11 @@ import Navbar from './Pages/Shared/Navbar';
 import { Routes, Route, Link } from "react-router-dom";
 import Home from './Pages/Home/Home';
 import About from './Pages/About/About';
-import Login from './Pages/Login/Login';
+
 import Appoinment from './Pages/Appoinment/Appoinment';
+import Login from './Pages/Login/Login';
+import SignUp from './Pages/Login/SignUp';
+import RequireAuth from './RequireAuth';
 
 function App() {
   return (
@@ -14,8 +17,13 @@ function App() {
     <Routes>
       <Route path='/' element={<Home></Home>}></Route>
       <Route path='/about' element={<About></About>}></Route>
-      <Route path='/login' element={<Login></Login>}></Route>
-      <Route path='/appoinment' element={<Appoinment></Appoinment>}></Route>
+     <Route path='/login' element={<Login></Login>} ></Route>
+     <Route path='/signup' element={<SignUp></SignUp>}></Route>
+      <Route path='/appoinment' element={
+        <RequireAuth>
+          <Appoinment></Appoinment>
+        </RequireAuth>
+      }></Route>
     </Routes>
     </div>
   );

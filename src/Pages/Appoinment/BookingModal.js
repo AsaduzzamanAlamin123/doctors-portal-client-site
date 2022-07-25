@@ -1,14 +1,28 @@
 import React from 'react';
 import { format } from 'date-fns';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 
 const BookingModal = ({treatMent , date , setTreatMent}) => {
+  const [user, loading, error] = useAuthState(auth);
+  
     const {_id , name , slots } = treatMent;
     const handleBooking = event =>{
         event.preventDefault();
         const slot = event.target.slot.value;
         console.log(slot , name , _id); 
-        setTreatMent(null)
+        setTreatMent(null);
+        const formatedDate = format(date , 'pp')
+        const booking = {
+          treatmentId:_id,
+          treatMentName:name,
+          date:formatedDate,
+          slot,
+          patient:user.email,
+          patientName:user.displayName
+        }
     }
+    
     return (
         <div>
             <input type="checkbox" id="booking-modal-6" class="modal-toggle" />
@@ -26,8 +40,8 @@ const BookingModal = ({treatMent , date , setTreatMent}) => {
  
 </select>
     
-    <input type="text" name='name' placeholder='name'  class="input input-bordered input-error w-full max-w-xs" />
-    <input type="text"name='email' placeholder="Enter Email" class="input input-bordered input-error w-full max-w-xs" />
+    <input type="text" name='name'disabled value={user?.displayName}  class="input input-bordered input-error w-full max-w-xs" />
+    <input type="text"name='email'disabled value={user?.email} class="input input-bordered input-error w-full max-w-xs" />
     <input type="text" name='phone' placeholder="Phone Number" class="input input-bordered input-error w-full max-w-xs" />
    
     <input type="submit" value='submit' placeholder="Type here" class="btn btn-secondary w-full max-w-xs" />
